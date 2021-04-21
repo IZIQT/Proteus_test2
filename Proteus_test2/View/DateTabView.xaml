@@ -7,6 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="{Binding Name}"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Content="Запустить" />
+            <Button Grid.Column="1" Grid.Row="1" Content="Пауза"/>
+            <Button Grid.Column="1" Grid.Row="1" Content="Продолжить"/>
+            <Button Grid.Column="3" Grid.Row="1" Content="Сброс"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding TimerText}"/>
+        </Grid>
     </Grid>
 </UserControl>

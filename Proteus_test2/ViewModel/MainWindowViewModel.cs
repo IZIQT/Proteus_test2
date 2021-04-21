@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -26,14 +27,21 @@ namespace Proteus_test2.ViewModel
             }
         }
 
-        ICommand NewTabCommand { get; }
+        public ICommand NewTabCommand { get; }
+        public RoutedEventHandler NewTabAction { get; set; }
         public MainWindowViewModel()
         {
             TabViewModels = new ObservableCollection<ITab>();
             TabViewModels.Add(new DataTabModel());
 
+            NewTabAction += NewTabExecute2;
             NewTabCommand = new RelayCommand(NewTabExecute);
             tabViewModels.CollectionChanged += Tabs_CollectionChanged;
+        }
+
+        private void NewTabExecute2(object sender, RoutedEventArgs e)
+        {
+            NewTabExecute(null);
         }
 
         private void Tabs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

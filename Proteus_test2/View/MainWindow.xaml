@@ -14,7 +14,20 @@
         <ViewModel:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <TabControl ItemsSource="{Binding TabViewModels}">
+        <TextBlock x:Name="HiddenItemWithDataContext" Visibility="Collapsed" />
+        <TabControl>
+            <TabControl.ItemsSource>
+                <CompositeCollection>
+                    <CollectionContainer Collection="{Binding DataContext.TabViewModels, Source={x:Reference HiddenItemWithDataContext}}"/>
+                    <TabItem >
+                        <!--Selector.Selected="{Binding NewTabAction}"-->
+                        <TabItem.Header>
+                            <Hyperlink Command="{Binding NewTabCommand}">+</Hyperlink>
+                        </TabItem.Header>
+                    </TabItem>
+
+                </CompositeCollection>
+            </TabControl.ItemsSource>
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type model:DataTabModel}">
                     <view:DateTabView/>
@@ -28,6 +41,17 @@
                     </TextBlock>
                 </DataTemplate>
             </TabControl.ItemTemplate>
+
+            <!--<Button Content="lol"/>-->
+            <!--<TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="+"/>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <TextBlock Text="Test"/>
+                </TabItem.Content>
+            </TabItem>-->
+
         </TabControl>
     </Grid>
 </Window>
