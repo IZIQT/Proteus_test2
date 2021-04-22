@@ -8,8 +8,9 @@
         xmlns:model="clr-namespace:Proteus_test2.Model"
         xmlns:view="clr-namespace:Proteus_test2.View"
         xmlns:interf="clr-namespace:Proteus_test2.Interfaces"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:i1="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
-        Title="Proteus Test" Height="300" Width="300">
+        Title="Proteus Test" Height="300" Width="400">
     <Window.DataContext>
         <ViewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -19,7 +20,12 @@
             <TabControl.ItemsSource>
                 <CompositeCollection>
                     <CollectionContainer Collection="{Binding DataContext.TabViewModels, Source={x:Reference HiddenItemWithDataContext}}"/>
-                    <TabItem >
+                    <TabItem Selector.Selected="TabItem_Selected">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseUp">
+                                <i:InvokeCommandAction Command="{Binding NewTabCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <!--Selector.Selected="{Binding NewTabAction}"-->
                         <TabItem.Header>
                             <Hyperlink Command="{Binding NewTabCommand}">+</Hyperlink>

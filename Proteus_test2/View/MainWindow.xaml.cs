@@ -24,5 +24,10 @@ namespace Proteus_test2
         {
             InitializeComponent();
         }
+
+        private void TabItem_Selected(object sender, RoutedEventArgs e)
+        {
+                e.Handled = true;
+        }
     }
 }
