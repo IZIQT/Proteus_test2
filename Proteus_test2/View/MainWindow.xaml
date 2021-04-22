@@ -9,7 +9,7 @@
         xmlns:view="clr-namespace:Proteus_test2.View"
         xmlns:interf="clr-namespace:Proteus_test2.Interfaces"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Proteus Test" Height="300" Width="300">
     <Window.DataContext>
         <ViewModel:MainWindowViewModel/>
     </Window.DataContext>
@@ -34,7 +34,7 @@
                 </DataTemplate>
             </TabControl.Resources>
             <TabControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type interf:ITab}">
+                <DataTemplate DataType="{x:Type model:DataTabModel}">
                     <TextBlock>
                         <Run Text="{Binding Name}"/>
                         <Hyperlink Command="{Binding CloseCommand}">X</Hyperlink>

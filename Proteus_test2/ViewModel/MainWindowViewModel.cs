@@ -16,8 +16,10 @@ namespace Proteus_test2.ViewModel
 {
     class MainWindowViewModel : ViewModelBase
     {
-        private ObservableCollection<ITab> tabViewModels;
-        public ObservableCollection<ITab> TabViewModels
+        public static int NumTab = 0;
+
+        private ObservableCollection<Tab> tabViewModels;
+        public ObservableCollection<Tab> TabViewModels
         {
             get => tabViewModels;
             set
@@ -31,12 +33,13 @@ namespace Proteus_test2.ViewModel
         public RoutedEventHandler NewTabAction { get; set; }
         public MainWindowViewModel()
         {
-            TabViewModels = new ObservableCollection<ITab>();
-            TabViewModels.Add(new DataTabModel());
+            TabViewModels = new ObservableCollection<Tab>();
+            
 
             NewTabAction += NewTabExecute2;
             NewTabCommand = new RelayCommand(NewTabExecute);
             tabViewModels.CollectionChanged += Tabs_CollectionChanged;
+            tabViewModels.Add(new DataTabModel());
         }
 
         private void NewTabExecute2(object sender, RoutedEventArgs e)
@@ -46,28 +49,37 @@ namespace Proteus_test2.ViewModel
 
         private void Tabs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ITab tab;
+            Tab tab;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    tab = (ITab)e.NewItems[0];
+                    tab = (Tab)e.NewItems[0];
                     tab.CloseRequested += OnTanCloseRequested;
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    tab = (ITab)e.OldItems[0];
+                    tab = (Tab)e.OldItems[0];
                     tab.CloseRequested -= OnTanCloseRequested;
                     break;
             }
+            //NumTab = e.NewStartingIndex;
         }
 
         private void OnTanCloseRequested(object sender, EventArgs e)
         {
-            tabViewModels.Remove((ITab)sender);
+            if (((DataTabModel)sender).DeleteEnable && NumTab > 1)
+            {
+                tabViewModels.Remove((Tab)sender);
+                NumTab--;
+            }
+            
         }
 
         private void NewTabExecute(object obj)
         {
-            tabViewModels.Add(new DataTabModel());
+            if(NumTab < 10)
+            {
+                tabViewModels.Add(new DataTabModel());
+            }
         }
     }
 }

@@ -4,14 +4,15 @@ using System.Windows.Input;
 
 namespace Proteus_test2.Interfaces
 {
-    public interface ITab
-    {
-        string Name { get; set; }
-        ICommand CloseCommand { get; set; }
-        event EventHandler CloseRequested;
-    }
+    //public interface ITab
+    //{
+    //    string Name { get; set; }
+    //    ICommand CloseCommand { get; set; }
+    //    event EventHandler CloseRequested;
+    //}
 
-    public abstract class Tab : ITab
+    //public abstract class Tab : ITab
+    public abstract class Tab : ViewModelBase
     {
         public Tab()
         {
